@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LearnToSing</string>
+    <string name="date-format">LearnToSing</string>
 </resources>

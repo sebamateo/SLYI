@@ -15,22 +15,16 @@ import com.federicorevello.singlikeyouridols.learntosing.model.Video;
  */
 public class VideoDAO {
 
-    // Logcat tag
-    private static final String LOG = "VideoDAO";
+    private static final String TAG = "com.federicorevello.singlikeyouridols.learntosing.db.dao.VideoDAO";
 
     private SQLiteDatabase database;
     private LearnToSingDbHelper dbHelper;
+    private Context context;
 
     public VideoDAO(Context context) {
+
         dbHelper = new LearnToSingDbHelper(context);
-    }
-
-    public void open() throws SQLException {
-        database = dbHelper.getReadableDatabase();
-    }
-
-    public void close() {
-        dbHelper.close();
+        this.context = context;
     }
 
     String[] projection = {
@@ -44,26 +38,32 @@ public class VideoDAO {
 
     public Video getVideoById(int id){
 
-        String selectQuery = "SELECT * FROM " +
-                LearnToSingContract.Video.TABLE_NAME +
-                " WHERE " + LearnToSingContract.Video._ID + " = " + id;
-
-        Log.e(LOG, selectQuery);
-
-        Cursor c = database.rawQuery(selectQuery, null);
-
+        database = dbHelper.getReadableDatabase();
         Video video = null;
 
-        if (c != null) {
-            c.moveToFirst();
+        try {
 
-            video = new Video();
-            video.setId(c.getInt(c.getColumnIndex(LearnToSingContract.Video._ID)));
-            video.setName(c.getString(c.getColumnIndex(LearnToSingContract.Video.COLUMN_NAME_NAME)));
-            video.setFilePath(c.getString(c.getColumnIndex(LearnToSingContract.Video.COLUMN_NAME_PATH)));
-            int exerciseType = c.getInt(c.getColumnIndex(LearnToSingContract.Video.COLUMN_NAME_EXERCISE_TYPE));
-            video.setExerciseType(Video.ExcerciseTypeEnum.values()[exerciseType]);
-            video.setExplanation(c.getInt(c.getColumnIndex(LearnToSingContract.Video.COLUMN_NAME_IS_EXPLANATION))>0);
+            String selectQuery = "SELECT * FROM " +
+                    LearnToSingContract.Video.TABLE_NAME +
+                    " WHERE " + LearnToSingContract.Video._ID + " = " + id;
+
+            Cursor c = database.rawQuery(selectQuery, null);
+
+            if (c != null) {
+                c.moveToFirst();
+
+                video = new Video();
+                video.setId(c.getInt(c.getColumnIndex(LearnToSingContract.Video._ID)));
+                video.setName(c.getString(c.getColumnIndex(LearnToSingContract.Video.COLUMN_NAME_NAME)));
+                video.setFilePath(c.getString(c.getColumnIndex(LearnToSingContract.Video.COLUMN_NAME_PATH)));
+                int exerciseType = c.getInt(c.getColumnIndex(LearnToSingContract.Video.COLUMN_NAME_EXERCISE_TYPE));
+                video.setExerciseType(Video.ExcerciseTypeEnum.values()[exerciseType]);
+                video.setExplanation(c.getInt(c.getColumnIndex(LearnToSingContract.Video.COLUMN_NAME_IS_EXPLANATION))>0);
+            }
+        }catch (Exception e){
+            Log.e(TAG, e.getMessage());
+        }finally {
+            database.close();
         }
 
         return video;
