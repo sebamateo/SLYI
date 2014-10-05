@@ -12,10 +12,11 @@ public class Video {
     private String name;
     private String filePath;
     private ExcerciseTypeEnum exerciseType;
+    private int internalExerciseTypeId;
     private boolean explanation;
     private boolean completed ;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -45,6 +46,14 @@ public class Video {
 
     public void setExerciseType(ExcerciseTypeEnum exerciseType) {
         this.exerciseType = exerciseType;
+    }
+
+    public int getInternalExerciseTypeId() {
+        return internalExerciseTypeId;
+    }
+
+    public void setInternalExerciseTypeId(int internalExerciseTypeId) {
+        this.internalExerciseTypeId = internalExerciseTypeId;
     }
 
     public boolean isExplanation() {

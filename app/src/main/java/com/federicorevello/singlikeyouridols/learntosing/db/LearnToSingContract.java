@@ -50,9 +50,9 @@ public final class LearnToSingContract {
         public static final String TABLE_NAME = "video";
         public static final String COLUMN_NAME_NAME = "video_name";
         public static final String COLUMN_NAME_PATH = "video_path";
-        public static final String COLUMN_NAME_EXERCISE_TYPE = "video_excercise_type";
+        public static final String COLUMN_NAME_EXERCISE_TYPE = "video_exercise_type";
         public static final String COLUMN_NAME_IS_EXPLANATION = "video_is_explanation";
-        public static final String COLUMN_NAME_VIDEO_ID = "video_id";
+        public static final String COLUMN_NAME_INTERNAL_EXERCISE_TYPE_ID = "video_internal_exercise_type_id";
 
         public static final String VIDEO_DIRECTORY_PATH = "";
         public static final String VIDEO_FILE_TYPE = "";
@@ -64,7 +64,7 @@ public final class LearnToSingContract {
                 COLUMN_NAME_NAME + " TEXT, "+
                 COLUMN_NAME_PATH + " TEXT, "+
                 COLUMN_NAME_EXERCISE_TYPE + " INTEGER, "+
-                COLUMN_NAME_VIDEO_ID + " INTEGER," +
+                COLUMN_NAME_INTERNAL_EXERCISE_TYPE_ID + " INTEGER," +
                 COLUMN_NAME_IS_EXPLANATION + " INTEGER);";
 
         public static final String SQL_DELETE =

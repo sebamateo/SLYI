@@ -1,6 +1,7 @@
 package com.federicorevello.singlikeyouridols.learntosing.model;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -43,5 +44,17 @@ public class SingClass {
 
     public void setVideos(List<Video> videos) {
         this.videos = videos;
+    }
+
+    public int[] getExerciseList()
+    {
+        int[] exerciseList = new int[12];
+
+        for(Iterator<Video> i = this.getVideos().iterator(); i.hasNext(); ) {
+            Video video = i.next();
+            exerciseList[video.getExerciseType().ordinal()] = video.getInternalExerciseTypeId();
+        }
+
+        return exerciseList;
     }
 }
